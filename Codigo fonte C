@@ -1,3 +1,11 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <iup.h>
+
+Ihandle *dlgPR, *labelPR1, *labelPR2, *labelPR3, *labelPR4, *labelPR5, *labelPR6, *vboxPR, *hboxPR, *buttonPR1, *buttonPR2, *buttonPR3, *cxtextPR1, *cxtextPR2, *cxtextPR3, *cxtextPR4, *cxtextPR5, *cxtextPR6;
+Ihandle *dlgMenu, *buttonMenu1, *buttonMenu2, *buttonMenu3, *buttonMenu4, *labelMenu, *vboxMenu;
+
 int main(int argc, char **argv){
 
   IupOpen(&argc, &argv);
