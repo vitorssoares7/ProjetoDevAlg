@@ -6,6 +6,39 @@
 Ihandle *dlgPR, *labelPR1, *labelPR2, *labelPR3, *labelPR4, *labelPR5, *labelPR6, *vboxPR, *hboxPR, *buttonPR1, *buttonPR2, *buttonPR3, *cxtextPR1, *cxtextPR2, *cxtextPR3, *cxtextPR4, *cxtextPR5, *cxtextPR6;
 Ihandle *dlgMenu, *buttonMenu1, *buttonMenu2, *buttonMenu3, *buttonMenu4, *labelMenu, *vboxMenu;
 
+struct registro{
+    char categoria[20];
+    float valor;
+    char descricao[100];
+};
+
+
+struct registro dados;
+	
+
+struct Relatorio12m{
+	
+	char categoria[20];
+    float valor;
+    char descricao[100];
+    int dia;
+    int mes;
+    int ano;
+};
+
+
+struct Relatorio12m dado;
+
+
+struct data{
+    int dia;
+    int mes;
+    int ano;
+};
+
+
+struct data d;
+
 int paginaRegistro( Ihandle *self ){
 	IupDestroy(dlgMenu);	
 	int main ();
