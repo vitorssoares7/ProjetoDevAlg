@@ -5,6 +5,7 @@
 
 Ihandle *dlgPR, *labelPR1, *labelPR2, *labelPR3, *labelPR4, *labelPR5, *labelPR6, *vboxPR, *hboxPR, *buttonPR1, *buttonPR2, *buttonPR3, *cxtextPR1, *cxtextPR2, *cxtextPR3, *cxtextPR4, *cxtextPR5, *cxtextPR6;
 Ihandle *dlgMenu, *buttonMenu1, *buttonMenu2, *buttonMenu3, *buttonMenu4, *labelMenu, *vboxMenu;
+Ihandle *labelR121, *labelR122, *labelR123, *cxtextR121, *cxtextR122, *cxtextR123, *buttonR121, *buttonR122, *vboxR12, *hboxR121, *hboxR122, *dlgR12;
 
 struct registro{
     char categoria[20];
@@ -71,6 +72,36 @@ int registraGasto(Ihandle *self){
 	main();
 }
 
+int registraReceita(Ihandle *self){
+	int main();
+	struct registro dados;
+	struct data d;
+	
+	char *cat = IupGetAttribute(cxtextPR1, "VALUE");
+	char *valo = IupGetAttribute(cxtextPR2, "VALUE");
+	char *desc = IupGetAttribute(cxtextPR3, "VALUE");
+	char *da = IupGetAttribute(cxtextPR4, "VALUE");
+	char *mt = IupGetAttribute(cxtextPR5, "VALUE");
+	char *yr = IupGetAttribute(cxtextPR6, "VALUE");
+	
+	float val = atof(valo);
+	int day = atoi(da);
+	int mth = atoi(mt);
+	int yar = atoi(yr);
+	
+	strcpy(dados.categoria, cat);
+	dados.valor = val;
+	strcpy(dados.descricao, desc);
+	d.dia = day;
+	d.mes = mth;
+	d.ano = yar;
+	FILE *carteira = fopen("minhaCarteiraEletrônica.txt","a");
+	fprintf(carteira,"%s\t%f\t%s\t%d\t%d\t%d\n",dados.categoria, dados.valor, dados.descricao, d.dia, d.mes, d.ano);
+	fclose(carteira);
+	IupMessage("Carteira Eletrônica", "Receita registrada com sucesso");
+	main();
+}
+
 int paginaRegistro( Ihandle *self ){
 	IupDestroy(dlgMenu);	
 	int main ();
@@ -127,6 +158,54 @@ int paginaRegistro( Ihandle *self ){
 
   	IupMainLoop();
 }
+
+
+int pagina12r(Ihandle *self){
+	IupDestroy(dlgMenu);	
+	int main ();
+	labelR121 =  IupLabel("Insira o dia :");
+	labelR122 =  IupLabel("Insira o mes :");
+	labelR123 =  IupLabel("Insira o ano :");
+	buttonR121 = IupButton("Puxar Relatório", NULL);
+	buttonR122 = IupButton("Voltar ao Menu", NULL);
+	cxtextR121 = IupText(NULL);
+	cxtextR122 = IupText(NULL);
+	cxtextR123 = IupText(NULL);
+	hboxR121 = IupHbox(
+	labelR121,
+	labelR122,
+	labelR123,
+	NULL);
+	hboxR122 = IupHbox(
+	cxtextR121,
+	cxtextR122,
+	cxtextR123,
+	NULL);
+	vboxR12 = IupVbox(
+	hboxR121,
+	hboxR122,
+	buttonR121,
+	buttonR122,
+	NULL);
+	IupSetAttribute(vboxR12, "ALIGNMENT", "ACENTER");
+  	IupSetAttribute(vboxR12, "GAP", "20");
+  	IupSetAttribute(vboxR12, "MARGIN", "120x80");
+  	IupSetAttribute(hboxR121, "ALIGNMENT", "ACENTER");
+  	IupSetAttribute(hboxR121, "GAP", "20");
+  	IupSetAttribute(hboxR121, "MARGIN", "20x20");
+  	IupSetAttribute(hboxR122, "ALIGNMENT", "ACENTER");
+  	IupSetAttribute(hboxR122, "GAP", "20");
+  	IupSetAttribute(hboxR122, "MARGIN", "20x20");
+  	dlgR12 = IupDialog(vboxR12);
+  	IupSetAttribute(dlgR12, "TITLE", "Carteira eletrônica");
+  	IupSetCallback(buttonR121, "ACTION", (Icallback) Registro12);
+  	IupSetCallback(buttonR122, "ACTION", (Icallback) main);
+  	
+  	IupShowXY(dlgR12, IUP_CENTER, IUP_CENTER);
+
+  	IupMainLoop();
+}
+
 
 int main(int argc, char **argv){
 
