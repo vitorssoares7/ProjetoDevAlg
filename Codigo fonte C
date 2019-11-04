@@ -6,6 +6,63 @@
 Ihandle *dlgPR, *labelPR1, *labelPR2, *labelPR3, *labelPR4, *labelPR5, *labelPR6, *vboxPR, *hboxPR, *buttonPR1, *buttonPR2, *buttonPR3, *cxtextPR1, *cxtextPR2, *cxtextPR3, *cxtextPR4, *cxtextPR5, *cxtextPR6;
 Ihandle *dlgMenu, *buttonMenu1, *buttonMenu2, *buttonMenu3, *buttonMenu4, *labelMenu, *vboxMenu;
 
+int paginaRegistro( Ihandle *self ){
+	IupDestroy(dlgMenu);	
+	int main ();
+	labelPR1 =  IupLabel("Insira a categoria :");
+	labelPR2 =  IupLabel("Adicione o valor :");
+	labelPR3 =  IupLabel("Insira uma descrição :");
+	labelPR4 =  IupLabel("Insira o dia :");
+	labelPR5 =  IupLabel("Insira o mes :");
+	labelPR6 =  IupLabel("Insira o ano :");
+	buttonPR1 = IupButton("Voltar a página ", NULL);
+	buttonPR2 = IupButton("Registrar receita", NULL);
+	buttonPR3 = IupButton("Registrar gasto", NULL);
+	cxtextPR1 = IupText(NULL);
+	cxtextPR2 = IupText(NULL);
+	cxtextPR3 = IupText(NULL);
+	cxtextPR4 = IupText(NULL);
+	cxtextPR5 = IupText(NULL);
+	cxtextPR6 = IupText(NULL);
+	hboxPR = IupHbox(
+	buttonPR2,
+	buttonPR3,
+    buttonPR1,
+	NULL);
+	vboxPR = IupVbox(
+    labelPR1,
+    cxtextPR1,
+    labelPR2,
+    cxtextPR2,
+    labelPR3,
+    cxtextPR3,
+    labelPR4,
+    cxtextPR4,
+    labelPR5,
+    cxtextPR5,
+    labelPR6,
+    cxtextPR6,
+    hboxPR,
+    NULL);
+  	IupSetAttribute(vboxPR, "ALIGNMENT", "ACENTER");
+  	IupSetAttribute(vboxPR, "GAP", "20");
+  	IupSetAttribute(vboxPR, "MARGIN", "120x80");
+  	IupSetAttribute(hboxPR, "ALIGNMENT", "ACENTER");
+  	IupSetAttribute(hboxPR, "GAP", "20");
+  	IupSetAttribute(hboxPR, "MARGIN", "20x20");
+  	dlgPR = IupDialog(vboxPR);
+  	IupSetAttribute(dlgPR, "TITLE", "Carteira eletrônica");
+  	
+  	IupSetCallback(buttonPR1, "ACTION", (Icallback) main);
+  	IupSetCallback(buttonPR2, "ACTION", (Icallback) registraReceita);
+  	IupSetCallback(buttonPR3, "ACTION", (Icallback) registraGasto);
+  	
+  	
+	IupShowXY(dlgPR, IUP_CENTER, IUP_CENTER);
+
+  	IupMainLoop();
+}
+
 int main(int argc, char **argv){
 
   IupOpen(&argc, &argv);
