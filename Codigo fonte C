@@ -1,0 +1,36 @@
+int main(int argc, char **argv){
+
+  IupOpen(&argc, &argv);
+  IupDestroy(dlgPR);
+  IupDestroy(dlgR12);
+  IupDestroy(dlgRC);
+  
+  labelMenu =  IupLabel("Bem vindo a sua carteira eletronica !");
+  buttonMenu1 = IupButton("Fechar carteira", NULL);
+  buttonMenu2 = IupButton("Adicionar Registro a carteira", NULL);
+  buttonMenu3 = IupButton("Relatório dos últimos 12 meses", NULL);
+  buttonMenu4 = IupButton("Relatório por categoria", NULL);
+  vboxMenu = IupVbox(
+    labelMenu,
+    buttonMenu2,
+    buttonMenu3,
+    buttonMenu4,
+    buttonMenu1,
+    NULL);
+  IupSetAttribute(vboxMenu, "ALIGNMENT", "ACENTER");
+  IupSetAttribute(vboxMenu, "GAP", "20");
+  IupSetAttribute(vboxMenu, "MARGIN", "100x100");
+  
+  dlgMenu = IupDialog(vboxMenu);
+  IupSetAttribute(dlgMenu, "TITLE", "Eletronic wallet");
+
+  /* Registers callbacks */
+  IupSetCallback(buttonMenu1, "ACTION", (Icallback) encerraPrograma);
+  IupSetCallback(buttonMenu2, "ACTION", (Icallback) paginaRegistro);
+  IupSetCallback(buttonMenu3, "ACTION", (Icallback) pagina12r);
+  IupSetCallback(buttonMenu4, "ACTION", (Icallback) paginaRC);
+
+  IupShowXY(dlgMenu, IUP_CENTER, IUP_CENTER);
+
+  IupMainLoop();
+}
