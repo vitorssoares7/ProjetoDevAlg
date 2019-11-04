@@ -39,6 +39,38 @@ struct data{
 
 struct data d;
 
+int registraGasto(Ihandle *self){
+	int main();
+	struct registro dados;
+	struct data d;
+	
+	char *cat = IupGetAttribute(cxtextPR1, "VALUE");
+	char *valo = IupGetAttribute(cxtextPR2, "VALUE");
+	char *desc = IupGetAttribute(cxtextPR3, "VALUE");
+	char *da = IupGetAttribute(cxtextPR4, "VALUE");
+	char *mt = IupGetAttribute(cxtextPR5, "VALUE");
+	char *yr = IupGetAttribute(cxtextPR6, "VALUE");
+	
+	float valp = atof(valo);
+	int day = atoi(da);
+	int mth = atoi(mt);
+	int yar = atoi(yr);
+	
+	float valn = valp*-1;
+	
+	strcpy(dados.categoria, cat);
+	dados.valor = valn;
+	strcpy(dados.descricao, desc);
+	d.dia = day;
+	d.mes = mth;
+	d.ano = yar;
+	FILE *carteira = fopen("minhaCarteiraEletrônica.txt","a");
+	fprintf(carteira,"%s\t%f\t%s\t%d\t%d\t%d\n",dados.categoria, dados.valor, dados.descricao, d.dia, d.mes, d.ano);
+	fclose(carteira);
+	IupMessage("Carteira Eletrônica", "Gasto registrado com sucesso");
+	main();
+}
+
 int paginaRegistro( Ihandle *self ){
 	IupDestroy(dlgMenu);	
 	int main ();
