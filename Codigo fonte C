@@ -4,8 +4,11 @@
 #include <iup.h>
 
 Ihandle *dlgPR, *labelPR1, *labelPR2, *labelPR3, *labelPR4, *labelPR5, *labelPR6, *vboxPR, *hboxPR, *buttonPR1, *buttonPR2, *buttonPR3, *cxtextPR1, *cxtextPR2, *cxtextPR3, *cxtextPR4, *cxtextPR5, *cxtextPR6;
-Ihandle *dlgMenu, *buttonMenu1, *buttonMenu2, *buttonMenu3, *buttonMenu4, *labelMenu, *vboxMenu;
+Ihandle *dlgMenu, *buttonMenu1, *buttonMenu2, *buttonMenu3, *buttonMenu4, *buttonMenu5, *buttonMenu6, *buttonMenu7, *labelMenu, *vboxMenu, *hboxMenu1, *hboxMenu2;
 Ihandle *labelR121, *labelR122, *labelR123, *cxtextR121, *cxtextR122, *cxtextR123, *buttonR121, *buttonR122, *vboxR12, *hboxR121, *hboxR122, *dlgR12;
+Ihandle *labelRC, *cxtextRC, *buttonRC1, *buttonRC2, *hboxRC1, *hboxRC2, *vboxRC, *dlgRC;
+Ihandle *labelRPC, *cxtextRPC, *buttonRPC1, *buttonRPC2, *hboxRPC1, *hboxRPC2, *vboxRPC, *dlgRPC;
+Ihandle *labelGC, *cxtextGC, *buttonGC1, *buttonGC2, *hboxGC1, *hboxGC2, *vboxGC, *dlgGC;
 
 struct registro{
     char categoria[20];
@@ -208,7 +211,7 @@ int pagina12r(Ihandle *self){
 
 
 int main(int argc, char **argv){
-
+  IupDestroy(dlgMenu);
   IupOpen(&argc, &argv);
   IupDestroy(dlgPR);
   IupDestroy(dlgR12);
@@ -219,25 +222,49 @@ int main(int argc, char **argv){
   buttonMenu2 = IupButton("Adicionar Registro a carteira", NULL);
   buttonMenu3 = IupButton("Relatório dos últimos 12 meses", NULL);
   buttonMenu4 = IupButton("Relatório por categoria", NULL);
-  vboxMenu = IupVbox(
-    labelMenu,
-    buttonMenu2,
+  buttonMenu5 = IupButton("Verificar Saldo Total", NULL);
+  buttonMenu6 = IupButton("Calcular Gastos por categoria", NULL);
+  buttonMenu7 = IupButton("Calcular receitas por categoria", NULL);
+  
+  hboxMenu1 = IupHbox(
+  	buttonMenu2,
     buttonMenu3,
     buttonMenu4,
+    NULL);
+    
+  hboxMenu2 = IupHbox(
+  	buttonMenu5,
+    buttonMenu6,
+    buttonMenu7,
+    NULL);
+    
+  vboxMenu = IupVbox(
+    labelMenu,
+    hboxMenu1,
+    hboxMenu2,
     buttonMenu1,
     NULL);
-  IupSetAttribute(vboxMenu, "ALIGNMENT", "ACENTER");
-  IupSetAttribute(vboxMenu, "GAP", "20");
-  IupSetAttribute(vboxMenu, "MARGIN", "100x100");
+    
+    IupSetAttribute(vboxMenu, "ALIGNMENT", "ACENTER");
+    IupSetAttribute(vboxMenu, "GAP", "20");
+    IupSetAttribute(vboxMenu, "MARGIN", "100x100");
+    IupSetAttribute(hboxMenu1, "ALIGNMENT", "ACENTER");
+	IupSetAttribute(hboxMenu1, "GAP", "20");
+  	IupSetAttribute(hboxMenu1, "MARGIN", "20x20");
+  	IupSetAttribute(hboxMenu2, "ALIGNMENT", "ACENTER");
+  	IupSetAttribute(hboxMenu2, "GAP", "20");
+  	IupSetAttribute(hboxMenu2, "MARGIN", "20x20");
   
   dlgMenu = IupDialog(vboxMenu);
   IupSetAttribute(dlgMenu, "TITLE", "Eletronic wallet");
 
-  /* Registers callbacks */
   IupSetCallback(buttonMenu1, "ACTION", (Icallback) encerraPrograma);
   IupSetCallback(buttonMenu2, "ACTION", (Icallback) paginaRegistro);
   IupSetCallback(buttonMenu3, "ACTION", (Icallback) pagina12r);
   IupSetCallback(buttonMenu4, "ACTION", (Icallback) paginaRC);
+  IupSetCallback(buttonMenu5, "ACTION", (Icallback) consultaSaldo);
+  IupSetCallback(buttonMenu6, "ACTION", (Icallback) PaginaGastoPc);
+  IupSetCallback(buttonMenu7, "ACTION", (Icallback) PaginaReceitaPc);
 
   IupShowXY(dlgMenu, IUP_CENTER, IUP_CENTER);
 
