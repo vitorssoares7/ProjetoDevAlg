@@ -43,6 +43,21 @@ struct data{
 
 struct data d;
 
+
+int stringsIguais(char s1[], char s2[]){
+	int i = 0;
+
+    do {
+        if(s1[i] != s2[i]) {
+            return 2;
+        }
+        i++;
+    } while(s1[i] != 0);
+
+    return 1;
+}
+
+
 int registraGasto(Ihandle *self){
 	int main();
 	struct registro dados;
@@ -104,6 +119,64 @@ int registraReceita(Ihandle *self){
 	IupMessage("Carteira Eletrônica", "Receita registrada com sucesso");
 	main();
 }
+
+
+int Registro12(){
+	system("cls");
+	printf("========================= Relatorio do ultimo ano =========================\n");
+	printf("categoria\tvalor\tdescricao\tdia\tmes\tano\n");
+	char *da = IupGetAttribute(cxtextR121, "VALUE");
+	char *mt = IupGetAttribute(cxtextR122, "VALUE");
+	char *yr = IupGetAttribute(cxtextR123, "VALUE");
+	int day = atoi(da);
+	int mth = atoi(mt);
+	int yar = atoi(yr);
+	int main();
+	FILE *carteira = fopen("minhaCarteiraEletrônica.txt","r");
+	char leitor[1000];
+	char *cat;
+	char *tvalor;
+	char *desc;
+	char *tdia;
+	char *tmes;
+	char *tano;
+	while(fgets(leitor,1000,carteira)!=NULL){
+		cat = strtok(leitor,"\t");
+		tvalor = strtok(NULL,"\t");
+		desc = strtok(NULL,"\t");
+		tdia = strtok(NULL,"\t");
+		tmes = strtok(NULL,"\t");
+		tano = strtok(NULL,"\t");
+		float valor = atof(tvalor);
+		int dia = atoi(tdia);
+		int mes = atoi(tmes);
+		int ano = atoi(tano);
+		if (ano == yar){
+			if (mes == mth){
+				if (day<=dia){
+					printf("%s\t%f\t%s\t%d\t%d\t%d\n",cat,valor,desc,dia,mes,ano);
+				}
+			}
+			if (mes < mth){
+				printf("%s\t%f\t%s\t%d\t%d\t%d\n",cat,valor,desc,dia,mes,ano);
+			}	
+		}
+		if (ano == yar-1){
+			if (mes==mth){
+				if (dia >= day){
+					printf("%s\t%f\t%s\t%d\t%d\t%d\n",cat,valor,desc,dia,mes,ano);
+				}
+			}
+			if (mes>mth){
+				printf("%s\t%f\t%s\t%d\t%d\t%d\n",cat,valor,desc,dia,mes,ano);
+			}
+		}
+	}
+	IupMessage("Carteira Eletrônica", "Seu relatório dos últimos 12 meses foi enviado ao console.");
+	fclose(carteira);
+	main();
+}
+
 
 int paginaRegistro( Ihandle *self ){
 	IupDestroy(dlgMenu);	
