@@ -16,19 +16,15 @@ struct registro{
     char descricao[100];
 };
 
-
 struct registro dados;
 	
-
 struct data{
     int dia;
     int mes;
     int ano;
 };
 
-
 struct data d;
-
 
 int stringsIguais(char s1[], char s2[]){
 	int i = 0;
@@ -42,7 +38,6 @@ int stringsIguais(char s1[], char s2[]){
 
     return 1;
 }
-
 
 int registraGasto(Ihandle *self){
 	int main();
@@ -106,7 +101,6 @@ int registraReceita(Ihandle *self){
 	main();
 }
 
-
 int Registro12(){
 	system("cls");
 	printf("========================= Relatorio do ultimo ano =========================\n");
@@ -162,7 +156,6 @@ int Registro12(){
 	fclose(carteira);
 	main();
 }
-
 
 int RelatorioC(){
 	system("cls");
@@ -272,6 +265,46 @@ int ReceitaPc(){
 	main();
 }
 
+int GastoPc(){
+	int main();
+	char *categoria = IupGetAttribute(cxtextGC, "VALUE");
+	FILE *carteira = fopen("minhaCarteiraEletrônica.txt","r");
+	char leitor[1000];
+	char *cat;
+	char *tvalor;
+	char *desc;
+	char *tdia;
+	char *tmes;
+	char *tano;
+	float Gasto = 0;
+	while(fgets(leitor,1000,carteira)!=NULL){
+		cat = strtok(leitor,"\t");
+		tvalor = strtok(NULL,"\t");
+		desc = strtok(NULL,"\t");
+		tdia = strtok(NULL,"\t");
+		tmes = strtok(NULL,"\t");
+		tano = strtok(NULL,"\t");
+		float valor = atof(tvalor);
+		int dia = atoi(tdia);
+		int mes = atoi(tmes);
+		int ano = atoi(tano);
+		int confs = stringsIguais(cat,categoria);
+		if (confs==1){
+			if(valor<0){
+				Gasto+=valor;
+			}
+		}
+	}
+	char textgasto[]="O seu Gasto na categoria ";
+	strcat(textgasto, categoria);
+	char part2[]=" foi de R$ ";
+	strcat(textgasto, part2);
+	char strgasto[10];
+	gcvt(Gasto, 6, strgasto);
+	strcat(textgasto, strgasto);
+	IupMessage("Carteira Eletrônica", textgasto);
+	main();
+}
 
 int paginaRegistro( Ihandle *self ){
 	IupDestroy(dlgMenu);	
