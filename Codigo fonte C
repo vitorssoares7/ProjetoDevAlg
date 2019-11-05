@@ -20,20 +20,6 @@ struct registro{
 struct registro dados;
 	
 
-struct Relatorio12m{
-	
-	char categoria[20];
-    float valor;
-    char descricao[100];
-    int dia;
-    int mes;
-    int ano;
-};
-
-
-struct Relatorio12m dado;
-
-
 struct data{
     int dia;
     int mes;
@@ -210,6 +196,79 @@ int RelatorioC(){
 	}
 	IupMessage("Carteira Eletrônica", "Seu relatório da categoria selecionada foi enviado ao console.");
 	fclose(carteira);
+	main();
+}
+
+int consultaSaldo(){
+	int main();
+	FILE *carteira = fopen("minhaCarteiraEletrônica.txt","r");
+	char leitor[1000];
+	char *cat;
+	char *tvalor;
+	char *desc;
+	char *tdia;
+	char *tmes;
+	char *tano;
+	float Saldo = 0;
+	while(fgets(leitor,1000,carteira)!=NULL){
+		cat = strtok(leitor,"\t");
+		tvalor = strtok(NULL,"\t");
+		desc = strtok(NULL,"\t");
+		tdia = strtok(NULL,"\t");
+		tmes = strtok(NULL,"\t");
+		tano = strtok(NULL,"\t");
+		float valor = atof(tvalor);
+		int dia = atoi(tdia);
+		int mes = atoi(tmes);
+		int ano = atoi(tano);
+		Saldo += valor;	
+	}
+	char strsaldo[10];
+	gcvt(Saldo, 6, strsaldo);
+	char txtsaldo[]="Seu saldo atual é de R$";
+	strcat(txtsaldo, strsaldo);
+	IupMessage("Carteira Eletrônica", txtsaldo);
+	main();
+}
+
+int ReceitaPc(){
+	int main();
+	char *categoria = IupGetAttribute(cxtextRPC, "VALUE");
+	FILE *carteira = fopen("minhaCarteiraEletrônica.txt","r");
+	char leitor[1000];
+	char *cat;
+	char *tvalor;
+	char *desc;
+	char *tdia;
+	char *tmes;
+	char *tano;
+	float Receita = 0;
+	while(fgets(leitor,1000,carteira)!=NULL){
+		cat = strtok(leitor,"\t");
+		tvalor = strtok(NULL,"\t");
+		desc = strtok(NULL,"\t");
+		tdia = strtok(NULL,"\t");
+		tmes = strtok(NULL,"\t");
+		tano = strtok(NULL,"\t");
+		float valor = atof(tvalor);
+		int dia = atoi(tdia);
+		int mes = atoi(tmes);
+		int ano = atoi(tano);
+		int confs = stringsIguais(cat,categoria);
+		if (confs==1){
+			if(valor>0){
+				Receita+=valor;
+			}
+		}
+	}
+	char textreceita[]="A sua receita na categoria ";
+	strcat(textreceita, categoria);
+	char part2[]=" foi de R$ ";
+	strcat(textreceita, part2);
+	char strreceita[10];
+	gcvt(Receita, 6, strreceita);
+	strcat(textreceita, strreceita);
+	IupMessage("Carteira Eletrônica", textreceita);
 	main();
 }
 
