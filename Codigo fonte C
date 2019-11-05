@@ -496,6 +496,58 @@ int PaginaReceitaPc (Ihandle *self){
   	IupMainLoop();
 }
 
+
+int PaginaGastoPc (Ihandle *self){
+	int main ();
+	labelGC =  IupLabel("Insira a categoria :");
+	cxtextGC = IupText(NULL);
+	buttonGC1 = IupButton("Verificar gastos", NULL);
+	buttonGC2 = IupButton("Voltar ao Menu", NULL);
+	
+	hboxGC1 = IupHbox(
+	labelGC,
+	cxtextGC,
+	NULL);
+	
+	hboxGC2 = IupHbox(
+	buttonGC1,
+	buttonGC2,
+	NULL);
+	
+	vboxGC = IupVbox(
+	hboxGC1,
+	hboxGC2,
+	NULL);
+	
+	IupSetAttribute(vboxGC, "ALIGNMENT", "ACENTER");
+  	IupSetAttribute(vboxGC, "GAP", "20");
+  	IupSetAttribute(vboxGC, "MARGIN", "120x80");
+  	IupSetAttribute(hboxGC1, "ALIGNMENT", "ACENTER");
+  	IupSetAttribute(hboxGC1, "GAP", "20");
+  	IupSetAttribute(hboxGC1, "MARGIN", "20x20");
+  	IupSetAttribute(hboxGC2, "ALIGNMENT", "ACENTER");
+  	IupSetAttribute(hboxGC2, "GAP", "20");
+  	IupSetAttribute(hboxGC2, "MARGIN", "20x20");
+  	dlgGC = IupDialog(vboxGC);
+  	
+  	IupSetAttribute(dlgGC, "TITLE", "Carteira eletrônica");
+  	IupSetCallback(buttonGC1, "ACTION", (Icallback) GastoPc);
+  	IupSetCallback(buttonGC2, "ACTION", (Icallback) main);
+  	
+  	IupShowXY(dlgGC, IUP_CENTER, IUP_CENTER);
+
+  	IupMainLoop();
+}
+
+
+int encerraPrograma( Ihandle *self ){
+	//IupDestroy(dlgMenu);
+  	IupMessage("Carteira eletrônica", "Obrigado, Volte sempre!");
+	IupClose();
+	return EXIT_SUCCESS;
+}
+
+
 int main(int argc, char **argv){
   IupDestroy(dlgMenu);
   IupOpen(&argc, &argv);
