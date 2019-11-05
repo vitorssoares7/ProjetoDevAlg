@@ -178,6 +178,42 @@ int Registro12(){
 }
 
 
+int RelatorioC(){
+	system("cls");
+	printf("========================= Relatorio da categoria selecionada =========================\n");
+	printf("categoria\tvalor\tdescricao\tdia\tmes\tano\n");
+	char *categoria = IupGetAttribute(cxtextRC, "VALUE");
+	int main();
+	FILE *carteira = fopen("minhaCarteiraEletrônica.txt","r");
+	char leitor[1000];
+	char *cat;
+	char *tvalor;
+	char *desc;
+	char *tdia;
+	char *tmes;
+	char *tano;
+	while(fgets(leitor,1000,carteira)!=NULL){
+		cat = strtok(leitor,"\t");
+		tvalor = strtok(NULL,"\t");
+		desc = strtok(NULL,"\t");
+		tdia = strtok(NULL,"\t");
+		tmes = strtok(NULL,"\t");
+		tano = strtok(NULL,"\t");
+		float valor = atof(tvalor);
+		int dia = atoi(tdia);
+		int mes = atoi(tmes);
+		int ano = atoi(tano);
+		int confs = stringsIguais(cat,categoria);
+		if (confs==1){
+			printf("%s\t%f\t%s\t%d\t%d\t%d\n",cat,valor,desc,dia,mes,ano);
+		}
+	}
+	IupMessage("Carteira Eletrônica", "Seu relatório da categoria selecionada foi enviado ao console.");
+	fclose(carteira);
+	main();
+}
+
+
 int paginaRegistro( Ihandle *self ){
 	IupDestroy(dlgMenu);	
 	int main ();
