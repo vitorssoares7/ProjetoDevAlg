@@ -209,6 +209,91 @@ int pagina12r(Ihandle *self){
   	IupMainLoop();
 }
 
+int paginaRC(Ihandle *self){
+	IupDestroy(dlgMenu);	
+	int main ();
+	labelRC =  IupLabel("Insira a categoria :");
+	cxtextRC = IupText(NULL);
+	buttonRC1 = IupButton("Puxar Relatório", NULL);
+	buttonRC2 = IupButton("Voltar ao Menu", NULL);
+	
+	hboxRC1 = IupHbox(
+	labelRC,
+	cxtextRC,
+	NULL);
+	
+	hboxRC2 = IupHbox(
+	buttonRC1,
+	buttonRC2,
+	NULL);
+	
+	vboxRC = IupVbox(
+	hboxRC1,
+	hboxRC2,
+	NULL);
+	
+	IupSetAttribute(vboxRC, "ALIGNMENT", "ACENTER");
+  	IupSetAttribute(vboxRC, "GAP", "20");
+  	IupSetAttribute(vboxRC, "MARGIN", "120x80");
+  	IupSetAttribute(hboxRC1, "ALIGNMENT", "ACENTER");
+  	IupSetAttribute(hboxRC1, "GAP", "20");
+  	IupSetAttribute(hboxRC1, "MARGIN", "20x20");
+  	IupSetAttribute(hboxRC2, "ALIGNMENT", "ACENTER");
+  	IupSetAttribute(hboxRC2, "GAP", "20");
+  	IupSetAttribute(hboxRC2, "MARGIN", "20x20");
+  	dlgRC = IupDialog(vboxRC);
+  	
+  	IupSetAttribute(dlgRC, "TITLE", "Carteira eletrônica");
+  	IupSetCallback(buttonRC1, "ACTION", (Icallback) RelatorioC);
+  	IupSetCallback(buttonRC2, "ACTION", (Icallback) main);
+  	
+  	IupShowXY(dlgRC, IUP_CENTER, IUP_CENTER);
+
+  	IupMainLoop();
+	
+}
+
+int PaginaReceitaPc (Ihandle *self){
+	int main ();
+	labelRPC =  IupLabel("Insira a categoria :");
+	cxtextRPC = IupText(NULL);
+	buttonRPC1 = IupButton("Verificar receita", NULL);
+	buttonRPC2 = IupButton("Voltar ao Menu", NULL);
+	
+	hboxRPC1 = IupHbox(
+	labelRPC,
+	cxtextRPC,
+	NULL);
+	
+	hboxRPC2 = IupHbox(
+	buttonRPC1,
+	buttonRPC2,
+	NULL);
+	
+	vboxRPC = IupVbox(
+	hboxRPC1,
+	hboxRPC2,
+	NULL);
+	
+	IupSetAttribute(vboxRPC, "ALIGNMENT", "ACENTER");
+  	IupSetAttribute(vboxRPC, "GAP", "20");
+  	IupSetAttribute(vboxRPC, "MARGIN", "120x80");
+  	IupSetAttribute(hboxRPC1, "ALIGNMENT", "ACENTER");
+  	IupSetAttribute(hboxRPC1, "GAP", "20");
+  	IupSetAttribute(hboxRPC1, "MARGIN", "20x20");
+  	IupSetAttribute(hboxRPC2, "ALIGNMENT", "ACENTER");
+  	IupSetAttribute(hboxRPC2, "GAP", "20");
+  	IupSetAttribute(hboxRPC2, "MARGIN", "20x20");
+  	dlgRPC = IupDialog(vboxRPC);
+  	
+  	IupSetAttribute(dlgRPC, "TITLE", "Carteira eletrônica");
+  	IupSetCallback(buttonRPC1, "ACTION", (Icallback) ReceitaPc);
+  	IupSetCallback(buttonRPC2, "ACTION", (Icallback) main);
+  	
+  	IupShowXY(dlgRPC, IUP_CENTER, IUP_CENTER);
+
+  	IupMainLoop();
+}
 
 int main(int argc, char **argv){
   IupDestroy(dlgMenu);
